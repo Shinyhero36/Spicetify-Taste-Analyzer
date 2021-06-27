@@ -1,0 +1,36 @@
+.taste-breaker-header {
+    color: var(--spice-text);
+    font-size: 2em;
+}
+
+.header {
+    font-weight: 700;
+    color: var(--spice-text)
+}
+
+.header-title {
+    font-size: 2em;
+    width: -moz-fit-content;
+    padding-bottom: 0.2em;
+    margin: 0;
+}
+
+.genre-list {
+    display: flex;
+    justify-content: center;
+    margin: 2em auto;
+    color: var(--spice-text)
+}
+
+.genre-card {
+    padding: 1.5em 1.5em;
+    margin-bottom: 1em;
+    min-width: 412px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.genre, .artist-track {
+    max-width: 1024px;
+    margin: 0 auto;
+}
