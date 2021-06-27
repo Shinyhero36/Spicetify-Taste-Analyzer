@@ -1,0 +1,6 @@
+# Ignore my makefile
+makefile
+./taste-analyzer
+
+# Ignore Idea
+.idea
