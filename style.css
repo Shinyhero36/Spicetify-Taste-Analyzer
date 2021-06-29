@@ -28,9 +28,16 @@
     min-width: 412px;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    text-align: center;
 }
 
 .genre, .artist-track {
     max-width: 1024px;
     margin: 0 auto;
+}
+
+.cardSubHeader {
+    margin-top: 4px;
+    white-space: normal;
+    color: var(--spice-subtext);
 }
