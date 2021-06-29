@@ -5,16 +5,16 @@ class TopTracksArtists extends react.Component {
         this.state = {
             maxSize: props.tracks.length,
             displayed: 5,
-            btnText: "Show More"
+            btnText: Spicetify.Locale.get("artist-page.tracks.seemore")
         }
     }
 
     showMore() {
         // If everything is already shown
         if (this.state.maxSize === this.state.displayed) {
-            this.setState({ displayed: 5, btnText: "Show More" })
+            this.setState({ displayed: 5, btnText: Spicetify.Locale.get("artist-page.tracks.seemore") })
         } else if (this.state.displayed + 5 >= this.state.maxSize) {
-            this.setState({ displayed: this.state.maxSize, btnText: "Show less" })
+            this.setState({ displayed: this.state.maxSize, btnText: Spicetify.Locale.get("artist-page.tracks.showless") })
         } else {
             this.setState({ displayed: this.state.displayed + 5})
         }
