@@ -1,8 +1,11 @@
+// noinspection JSUnresolvedVariable, JSUnresolvedFunction
+
 // Run "npm i @types/react" to have this type package available in workspace
 /// <reference types="react" />
 
+// noinspection JSUnresolvedVariable
 /** @type {React} */
-const { URI, React: react, ReactDOM: reactDOM, Platform: { History } } = Spicetify;
+const { URI, React: react, Platform: { History } } = Spicetify;
 
 // Define a function called "render" to spicetify app entry point
 // This function will be used to mount app to main view.
@@ -24,6 +27,10 @@ class Grid extends react.Component{
     }
 
     computeGenre(artists) {
+        this.setState({
+            isLoading: true
+        })
+
         gridList = [];
 
         let allGenres = [];
@@ -56,6 +63,7 @@ class Grid extends react.Component{
     }
 
     async fetchUserInfo() {
+        let maxTopLength = 15;
         let resp = await fetchTopArtists("short_term");
         const artistsShort = await resp.items;
 
@@ -67,25 +75,26 @@ class Grid extends react.Component{
 
         resp = await fetchTopTracks("long_term");
         const tracksLong = await resp.items;
+        console.log(tracksLong)
 
 
         // Compute genres
         this.computeGenre(artistsLong)
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "Top Artists (Current)", tracks: artistsShort }
+            TopTracksArtists, { title: "Current favorite artists", tracks: artistsShort.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "Top Artists (All Time)", tracks: artistsLong }
+            TopTracksArtists, { title: "All-Time favorite artists", tracks: artistsLong.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "Top Tracks (Current)", tracks: tracksShort }
+            TopTracksArtists, { title: "Current favorite tracks", tracks: tracksShort.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "Top Track (All Time)", tracks: tracksLong }
+            TopTracksArtists, { title: "All-Time favorite tracks", tracks: tracksLong.slice(0, maxTopLength) }
         ))
     }
 
@@ -107,7 +116,7 @@ class Grid extends react.Component{
                 react.createElement("div", { className: "taste-breaker-header" },
                     react.createElement("h1", null, APP_NAME),
                 ),
-                this.state.rest ? LoadingIcon: gridList)
+                this.state.isLoading ? LoadingIcon: gridList)
         )
     }
 
