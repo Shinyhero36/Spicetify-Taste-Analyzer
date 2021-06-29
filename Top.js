@@ -1,31 +1,23 @@
-const ShowMore = ({ text, active = true, onClick }) => {
-    return react.createElement("button", {
-        className: "show-more-btn",
-        style: {
-            "margin-top": "2em",
-            "border-radius": "25px",
-            "padding": "1em 2em",
-            "font-weight": "bold",
-            "background": "va(--spice-main)"
-        },
-        onClick,
-    }, text);
-};
-
 class TopTracksArtists extends react.Component {
     constructor(props) {
         super(props);
         Object.assign(this, props)
         this.state = {
             maxSize: props.tracks.length,
-            displayed: 5
+            displayed: 5,
+            btnText: "Show More"
         }
     }
 
     showMore() {
-        this.setState({
-            displayed: (this.state.displayed + 5 > this.state.maxSize ? this.state.maxSize : this.state.displayed + 5)
-        });
+        // If everything is already shown
+        if (this.state.maxSize === this.state.displayed) {
+            this.setState({ displayed: 5, btnText: "Show More" })
+        } else if (this.state.displayed + 5 >= this.state.maxSize) {
+            this.setState({ displayed: this.state.maxSize, btnText: "Show less" })
+        } else {
+            this.setState({ displayed: this.state.displayed + 5})
+        }
     }
 
     componentDidMount() {  }
@@ -47,7 +39,7 @@ class TopTracksArtists extends react.Component {
                     react.createElement(
                         "div",
                         { style: { "place-content": "center", "display": "flex" }},
-                        react.createElement(ShowMore, {text: "Show More", onClick: this.showMore.bind(this)})
+                        react.createElement(ShowMore, {text: this.state.btnText, onClick: this.showMore.bind(this)})
                     )
                 ),
 
