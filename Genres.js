@@ -16,9 +16,7 @@ class Genre extends react.Component {
 
 }
 
-/**
- * Component to display all genre
- */
+
 class TopGenre extends react.Component {
     constructor(props) {
         super(props);
@@ -28,7 +26,7 @@ class TopGenre extends react.Component {
     render() {
         return (
             react.createElement("div", {style: {"display": "block"}},
-                react.createElement("div", { className: "genre show"},
+                react.createElement("div", null,
                     react.createElement("div", { className: "header"},
                         react.createElement("h2", { className: "header-title"}, "Top Genres")
                     ),
