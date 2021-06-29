@@ -33,13 +33,12 @@ class Card extends react.Component {
 
     followerFormat(count) {
         const f = parseInt(count, 10)
-        if (f < 999) {
-            return f
-        } else if (f >= 1e4 && f < 1e6 - 1) {
-            return Math.abs(f / 1e4).toFixed(1) + "k"
-        } else {
+        if (f < 1e6 - 1) {
+            return Math.abs(f / 1e3).toFixed(1) + "k"
+        } else if (f < 1e12 - 1) {
             return Math.abs(f / 1e6).toFixed(1) + "mil"
         }
+        return f
     }
 
     getSubtitle() {
@@ -50,21 +49,23 @@ class Card extends react.Component {
             subtitle = this.artists.map((artist) => {
                 const artistHref = "/" + URI.from(artist.uri).toURLPath();
                 return react.createElement("a", {
-                    className: `main-type-mesto reddit-cardSubHeader`,
+                    className: `main-type-mesto cardSubHeader`,
                     href: artistHref,
                     onClick: (event) => {
                         event.preventDefault();
                         event.stopPropagation();
                         History.push(artistHref);
                     },
-                }, react.createElement("span", null, artist.name));
+                }, react.createElement("span", {
+                    style: { "color": "var(--spice-text)" }
+                }, artist.name));
             });
             // Insert commas between elements
             subtitle = subtitle.flatMap((el, i, arr) => (arr.length - 1) !== i ? [el, ", "] : el);
         } else if (this.type.toLowerCase() === "artist") {
             // If type is artist, display artist's genres
             subtitle = react.createElement("div", {
-                className: "main-cardSubHeader-root main-type-mesto reddit-cardSubHeader",
+                className: "main-cardSubHeader-root main-type-mesto cardSubHeader",
                 as: "div",
             }, react.createElement(
                 "span",
@@ -161,7 +162,7 @@ class Card extends react.Component {
                             react.createElement(
                             "div",
                             {
-                                className: "main-cardSubHeader-root main-type-mestoBold reddit-cardSubHeader",
+                                className: "main-cardSubHeader-root main-type-mestoBold cardSubHeader",
                                 as: "div"
                                 },
                             ),
