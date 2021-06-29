@@ -15,7 +15,7 @@ function render() {
 
 let gridList = [];
 
-const APP_NAME = "Taste Analyzer"
+const APP_NAME = "";
 
 class Grid extends react.Component{
     constructor(props) {
@@ -38,7 +38,6 @@ class Grid extends react.Component{
 
         let counts = {}
         allGenres.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
-        console.log(counts)
 
         let myGenres = []
         for (const [key, value] of Object.entries(counts)) {
@@ -75,7 +74,6 @@ class Grid extends react.Component{
 
         resp = await fetchTopTracks("long_term");
         const tracksLong = await resp.items;
-        console.log(tracksLong)
 
 
         // Compute genres
@@ -86,7 +84,7 @@ class Grid extends react.Component{
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "All-Time favorite artists", tracks: artistsLong.slice(0, maxTopLength) }
+            TopTracksArtists, { title: `All-Time favorite artists`, tracks: artistsLong.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
