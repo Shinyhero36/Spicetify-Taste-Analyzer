@@ -1,4 +1,5 @@
 const LoadingIcon = react.createElement("svg", {
+    style: { "margin": "0 auto", "display": "block"},
     width: "200px", height: "200px", viewBox: "0 0 100 100", preserveAspectRatio: "xMidYMid"
 }, react.createElement("circle", {
     cx: "50", cy: "50", r: "0", fill: "none", stroke: "currentColor", "stroke-width": "2"
