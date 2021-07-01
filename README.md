@@ -11,7 +11,7 @@ Display your favourite genre, tracks and artists within the Spotify client
 
 ### Tracks
 ![Preview 3](./.images/Preview-Tracks-1.png)
-![Preview 4](./.images/Preview-Tracks-2.png)
+
 
 ## Installations
 
