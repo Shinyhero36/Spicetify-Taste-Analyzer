@@ -14,6 +14,14 @@ function render() {
 }
 
 let gridList = [];
+let artists = {
+    short: null,
+    long: null,
+}
+let tracks = {
+    short: null,
+    long: null,
+}
 
 const APP_NAME = "";
 
@@ -63,36 +71,44 @@ class Grid extends react.Component{
 
     async fetchUserInfo() {
         let maxTopLength = 15;
-        let resp = await fetchTopArtists("short_term");
-        const artistsShort = await resp.items;
+        if (!artists.short) {
+            let resp = await fetchTopArtists("short_term");
+            artists.short = await resp.items;
+        }
 
-        resp = await fetchTopArtists("long_term");
-        const artistsLong = await resp.items;
+        if (!artists.long) {
+            let resp = await fetchTopArtists("long_term");
+            artists.long = await resp.items;
+        }
 
-        resp = await fetchTopTracks("short_term");
-        const tracksShort = await resp.items
+        if (!tracks.short) {
+            let resp = await fetchTopTracks("short_term");
+            tracks.short = await resp.items;
+        }
 
-        resp = await fetchTopTracks("long_term");
-        const tracksLong = await resp.items;
+        if (!tracks.long) {
+            let resp = await fetchTopTracks("long_term");
+            tracks.long = await resp.items;
+        }
 
 
         // Compute genres
-        this.computeGenre(artistsLong)
+        this.computeGenre(artists.long)
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "Current favorite artists", tracks: artistsShort.slice(0, maxTopLength) }
+            TopTracksArtists, { title: "Current favorite artists", tracks: artists.short.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: `All-Time favorite artists`, tracks: artistsLong.slice(0, maxTopLength) }
+            TopTracksArtists, { title: `All-Time favorite artists`, tracks: artists.long.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "Current favorite tracks", tracks: tracksShort.slice(0, maxTopLength) }
+            TopTracksArtists, { title: "Current favorite tracks", tracks: tracks.short.slice(0, maxTopLength) }
         ))
 
         gridList.push(react.createElement(
-            TopTracksArtists, { title: "All-Time favorite tracks", tracks: tracksLong.slice(0, maxTopLength) }
+            TopTracksArtists, { title: "All-Time favorite tracks", tracks: tracks.long.slice(0, maxTopLength) }
         ))
     }
 
