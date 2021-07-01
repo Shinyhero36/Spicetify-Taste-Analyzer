@@ -1,7 +1,9 @@
 class Card extends react.Component {
     constructor(props) {
         super(props);
-        Object.assign(this, props);
+        Object.assign(this, props.card);
+        this.rank = props.rank;
+
         const uriObj = URI.fromString(this.uri);
         this.href = uriObj.toURLPath(true);
 
@@ -68,6 +70,20 @@ class Card extends react.Component {
         }
     }
 
+    setPopularityBadge() {
+        if (this.popularity <= 20) {
+            return "badge-C-tier";
+        } else if (this.popularity <= 40) {
+            return "badge-B-tier";
+        } else if (this.popularity <= 60) {
+            return "badge-A-tier";
+        } else if (this.popularity <= 80) {
+            return "badge-S-tier";
+        } else {
+            return "badge-SS-tier";
+        }
+    }
+
     getTitle() {
         return this.name;
     }
@@ -100,8 +116,24 @@ class Card extends react.Component {
                 this.uriType === URI.Type.ARTIST ?
                     "main-image-image main-cardImage-image main-cardImage-circular" : ""
             }`
-        }))), react.createElement("div", {
-            className: "main-card-PlayButtonContainer"
+        }),
+           react.createElement("div", {},
+               react.createElement(
+                   "span",
+                   {className: "badge badge-rank"},
+                   `#${this.rank}`
+               ),
+               react.createElement(
+                   "span",
+                   {className: `badge badge-popularity ${this.setPopularityBadge()}`},
+                   react.createElement(
+                       "span",
+                       { style: { marginBottom: "0 !important"}},
+                       PopularityIcon, this.popularity
+                       )
+                   ),
+               )), react.createElement("div", {
+           className: "main-card-PlayButtonContainer"
         }, react.createElement("button", {
             className: "main-playButton-PlayButton main-playButton-primary",
             "aria-label": Spicetify.Locale.get("play"),
@@ -132,6 +164,6 @@ class Card extends react.Component {
                 as: "div",
             }, react.createElement("span", null, detail.join(" ‒ ")),
         ), this.getSubtitle(),
-        ))));
+        )))));
     }
 }
