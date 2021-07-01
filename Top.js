@@ -34,7 +34,7 @@ class TopTracksArtists extends react.Component {
                     react.createElement(
                         "div",
                         {className: "main-gridContainer-gridContainer", style: {"--minimumColumnWidth": "180px"}},
-                        this.tracks.slice(0, this.state.displayed).map(card => react.createElement(Card, card))
+                        this.tracks.slice(0, this.state.displayed).map((card, index) => react.createElement(Card, {card: card, rank: index+1}))
                     ),
                     react.createElement(
                         "div",
