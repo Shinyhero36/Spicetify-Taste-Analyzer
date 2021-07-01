@@ -41,3 +41,57 @@
     white-space: normal;
     color: var(--spice-subtext);
 }
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.badge-rank {
+    font-size: 1.5rem;
+    left: 0;
+    position: absolute;
+    top: 0.5rem;
+    border-radius: 0 25% 25% 0;
+    color: var(--spice-text);
+    background-color: #343a40;
+}
+
+
+.badge-popularity {
+    border-radius: 25% 0 0 25%;
+    font-size: 1.25em;
+    position: absolute;
+    right: 0;
+    top: 0.5rem;
+    user-select: none;
+}
+
+.badge-SS-tier {
+    color: var(--spice-text);
+    background-color: #288745;
+}
+
+.badge-S-tier {
+    color: var(--spice-text);
+    background-color: #006dff;
+}
+
+.badge-A-tier {
+    color: var(--spice-text);
+    background-color: #9954bb;
+}
+
+.badge-B-tier {
+    color: var(--spice-text);
+    background-color: darkgoldenrod;
+}
+
+.badge-C-tier {
+    color: var(--spice-text);
+    background-color: #dc3545;
+}
