@@ -70,20 +70,6 @@ class Card extends react.Component {
         }
     }
 
-    setPopularityBadge() {
-        if (this.popularity <= 20) {
-            return "badge-C-tier";
-        } else if (this.popularity <= 40) {
-            return "badge-B-tier";
-        } else if (this.popularity <= 60) {
-            return "badge-A-tier";
-        } else if (this.popularity <= 80) {
-            return "badge-S-tier";
-        } else {
-            return "badge-SS-tier";
-        }
-    }
-
     getTitle() {
         return this.name;
     }
@@ -123,15 +109,6 @@ class Card extends react.Component {
                    {className: "badge badge-rank"},
                    `#${this.rank}`
                ),
-               react.createElement(
-                   "span",
-                   {className: `badge badge-popularity ${this.setPopularityBadge()}`},
-                   react.createElement(
-                       "span",
-                       { style: { marginBottom: "0 !important"}},
-                       PopularityIcon, this.popularity
-                       )
-                   ),
                )), react.createElement("div", {
            className: "main-card-PlayButtonContainer"
         }, react.createElement("button", {
