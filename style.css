@@ -41,3 +41,22 @@
     white-space: normal;
     color: var(--spice-subtext);
 }
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.badge-rank {
+    font-size: 1.5rem;
+    left: 0;
+    position: absolute;
+    top: 0.5rem;
+    border-radius: 0 25% 25% 0;
+    color: var(--spice-text);
+    background-color: #343a40;
+}

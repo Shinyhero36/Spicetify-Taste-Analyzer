@@ -14,20 +14,3 @@ const LoadingIcon = react.createElement("svg", {
 }), react.createElement("animate", {
     attributeName: "opacity", repeatCount: "indefinite", dur: "1s", values: "1;0", keyTimes: "0;1", keySplines: "0.2 0 0.8 1", calcMode: "spline", begin: "-0.5s"
 })));
-
-class LoadMoreIcon extends react.Component {
-    render() {
-        return react.createElement("div", {
-            onClick: this.props.onClick,
-        }, react.createElement("p", {
-            style: {
-                fontSize: 100,
-                lineHeight: "65px",
-            }
-        }, "»"), react.createElement("span", {
-            style: {
-                fontSize: 20,
-            }
-        }, "Load more"));
-    };
-}

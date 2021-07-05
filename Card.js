@@ -1,7 +1,9 @@
 class Card extends react.Component {
     constructor(props) {
         super(props);
-        Object.assign(this, props);
+        Object.assign(this, props.card);
+        this.rank = props.rank;
+
         const uriObj = URI.fromString(this.uri);
         this.href = uriObj.toURLPath(true);
 
@@ -100,8 +102,15 @@ class Card extends react.Component {
                 this.uriType === URI.Type.ARTIST ?
                     "main-image-image main-cardImage-image main-cardImage-circular" : ""
             }`
-        }))), react.createElement("div", {
-            className: "main-card-PlayButtonContainer"
+        }),
+           react.createElement("div", {},
+               react.createElement(
+                   "span",
+                   {className: "badge badge-rank"},
+                   `#${this.rank}`
+               ),
+               )), react.createElement("div", {
+           className: "main-card-PlayButtonContainer"
         }, react.createElement("button", {
             className: "main-playButton-PlayButton main-playButton-primary",
             "aria-label": Spicetify.Locale.get("play"),
@@ -132,6 +141,6 @@ class Card extends react.Component {
                 as: "div",
             }, react.createElement("span", null, detail.join(" ‒ ")),
         ), this.getSubtitle(),
-        ))));
+        )))));
     }
 }
