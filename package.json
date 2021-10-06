@@ -1,0 +1,50 @@
+{
+  "name": "spicetify-taste-analyzer",
+  "version": "1.0.0",
+  "description": "Display your favourite genre, tracks and artists within the Spotify client",
+  "main": "index.js",
+  "scripts": {
+    "test": "make run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shinyhero36/Spicetify-Taste-Analyzer.git"
+  },
+  "author": "Shinyhero36",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shinyhero36/Spicetify-Taste-Analyzer/issues"
+  },
+  "homepage": "https://github.com/Shinyhero36/Spicetify-Taste-Analyzer#readme",
+  "devDependencies": {
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.4.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "prettier"
+    ],
+    "rules": {
+      "no-undef": 0,
+      "no-shadow": "off",
+      "prettier/prettier": [
+        "warn",
+        {
+          "tabWidth": 2,
+          "useTabs": false,
+          "semi": true,
+          "singleQuote": true,
+          "quoteProps": "consistent",
+          "jsxSingleQuote": false,
+          "trailingComma": "es5",
+          "bracketSpacing": true,
+          "bracketSameLine": true,
+          "arrowParens": "always"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+  }
+}
