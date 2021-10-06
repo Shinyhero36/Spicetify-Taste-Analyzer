@@ -4,3 +4,9 @@ makefile
 
 # Ignore Idea
 .idea
+
+# DTS
+*.d.ts
+
+# Node Modules
+node_modules
