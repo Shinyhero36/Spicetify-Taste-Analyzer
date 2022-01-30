@@ -62,7 +62,8 @@ class Card extends react.Component {
       });
       return artists.join(", ");
     } else if (uriType === URI.Type.ARTIST) {
-      return "Artist";
+      const genres = this.props.genres;
+      return genres.join(", ");
     }
   }
 
