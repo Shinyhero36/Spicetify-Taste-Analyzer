@@ -4,14 +4,9 @@ class Shelf extends react.Component {
     Object.assign(this, props);
     this.state = {
       items: [],
-      showAll: false,
+      itemShown: 7,
       text: "Show more",
     };
-    setInterval(this.tick, 1000);
-  }
-
-  tick() {
-    console.log("tic tac");
   }
 
   componentDidMount() {
@@ -23,10 +18,23 @@ class Shelf extends react.Component {
     this.setState({ items: cards });
   }
 
-  toggleShowAll() {
+  showMore() {
+    let newItemShown = this.state.itemShown;
+
+    if (this.state.itemShown === this.state.items.length) {
+      newItemShown = 7;
+    } else if (this.state.itemShown + 7 < this.state.items.length) {
+      newItemShown += 7;
+    } else {
+      newItemShown = this.state.items.length;
+    }
+
+    console.log("→", newItemShown);
+
     this.setState({
-      showAll: !this.state.showAll,
-      text: this.state.showAll ? "Show more" : "Show less",
+      itemShown: newItemShown,
+      text:
+        newItemShown !== this.state.items.length ? "Show more" : "Show less",
     });
   }
 
@@ -87,8 +95,7 @@ class Shelf extends react.Component {
               draggable: false,
               className: "main-seeAll-link main-shelf-seeAll",
               onClick: () => {
-                this.toggleShowAll();
-                showNotification("I can't display more at the moment.");
+                this.showMore();
               },
             },
             this.props.showBtn &&
@@ -107,14 +114,14 @@ class Shelf extends react.Component {
         "div",
         {
           className: `main-gridContainer-gridContainer main-shelf-shelfGrid${
-            this.state.showAll === true ? " main-shelf-showAll" : ""
+            this.showBtn === true ? " main-shelf-showAll" : ""
           }`,
           style: {
             "--minimumColumnWidth": "180px",
           },
         },
 
-        this.state.items
+        this.state.items.slice(0, this.state.itemShown)
       )
     );
   }
