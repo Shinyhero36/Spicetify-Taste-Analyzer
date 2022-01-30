@@ -7,11 +7,10 @@ const {
   URI,
   React: react,
   Platform: { History },
-  showNotification,
+  colorExtractor,
 } = Spicetify;
 
-const APP_NAME = "My Music Tastes";
-const FOOTER = {
+const FooterProps = {
   message: "Made by @Shinyhero36",
   url: "https://github.com/Shinyhero36/Spicetify-Taste-Analyzer",
 };
@@ -21,10 +20,10 @@ const FOOTER = {
  * @returns {*}
  */
 function render() {
-  return react.createElement(App);
+  return react.createElement(App, { title: "My music tastes" });
 }
 
-let gridList = [];
+let sections = [];
 
 let userInfo = {
   artists: {
@@ -52,6 +51,11 @@ class App extends react.Component {
     this.setState({ isLoading: false });
   }
 
+  /**
+   * Returns an array of objects containing genre name and occurrences
+   * @param artists
+   * @returns {*}
+   */
   computeGenres(artists) {
     let allGenres = [];
     artists.forEach((artist) => (allGenres = allGenres.concat(artist.genres)));
@@ -95,21 +99,26 @@ class App extends react.Component {
     userInfo.genres = this.computeGenres(userInfo.artists.allTime);
   }
 
+  /**
+   * Render components when all the fetching is done
+   * @returns {Promise<void>}
+   */
   async componentDidMount() {
     // Render components once
-    if (gridList.length === 0) {
+    if (sections.length === 0) {
       await this.fetchInfo();
 
-      gridList.push(
-        react.createElement(Carousel, {
-          title: "Your top 10 genres",
+      sections.push(
+        react.createElement(Grid, {
+          title: "Your top genres",
           items: userInfo.genres.slice(0, 10),
           component: CategoryCard,
+          showBtn: false,
         })
       );
 
-      gridList.push(
-        react.createElement(Carousel, {
+      sections.push(
+        react.createElement(Shelf, {
           title: "Artists of the moment",
           description: "A list of your favourite artists of the moment",
           items: userInfo.artists.now,
@@ -118,8 +127,8 @@ class App extends react.Component {
         })
       );
 
-      gridList.push(
-        react.createElement(Carousel, {
+      sections.push(
+        react.createElement(Shelf, {
           title: "Artists of all-time",
           description: "A list of your favourite artists of all-time",
           items: userInfo.artists.allTime,
@@ -128,8 +137,8 @@ class App extends react.Component {
         })
       );
 
-      gridList.push(
-        react.createElement(Carousel, {
+      sections.push(
+        react.createElement(Shelf, {
           title: "Tracks of the moment",
           description: "A list of your favourite tracks of the moment",
           items: userInfo.tracks.now,
@@ -138,8 +147,8 @@ class App extends react.Component {
         })
       );
 
-      gridList.push(
-        react.createElement(Carousel, {
+      sections.push(
+        react.createElement(Shelf, {
           title: "Tracks of all-time",
           description: "A list of your favourite tracks of all-time",
           items: userInfo.tracks.allTime,
@@ -147,9 +156,6 @@ class App extends react.Component {
           showBtn: false,
         })
       );
-
-      // Footer
-      gridList.push(react.createElement(Footer, FOOTER));
     }
 
     this.reload();
@@ -159,29 +165,20 @@ class App extends react.Component {
     return react.createElement(
       "section",
       {
-        className: "Bocw75wJnfKX_tXd4Zj0",
+        className: "contentSpacing",
       },
       // Header
-      react.createElement(Header, {
-        title: APP_NAME,
-      }),
-      // Body
       react.createElement(
         "div",
         {
-          className: "sbU_cIh6kQUanX3IUWD8",
+          className: "reddit-header",
         },
-        react.createElement("div", {
-          className: "main-actionBarBackground-background",
-        }),
-        react.createElement(
-          "div",
-          {
-            className: "MyIjLCV_8t8KluouRgpd contentSpacing",
-          },
-          this.state.isLoading ? LoadingIcon : gridList
-        )
-      )
+        react.createElement("h1", null, this.props.title)
+      ),
+      // Content
+      this.state.isLoading ? LoadingIcon : sections,
+
+      react.createElement(Footer, FooterProps)
     );
   }
 }
