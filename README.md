@@ -1,32 +1,24 @@
-# Taste Analyzer
+<h1 align="center">
+    Spicetify Canvas
+</h1>
 
-Display your favourites genres, tracks and artists within Spotify
+---
 
-## Screenshots
-![](doc/preview.gif)
-
+<p align="center">
+<img src="preview.gif" alt="GIF preview" />
+</p>
 
 ## Installation
 
-Clone the repository
-
-```base
-git clone https://github.com/Shinyhero36/Spicetify-Taste-Analyzer
+1. Clone the repo:
+```console
+$ git clone https://github.com/Shinyhero36/Spicetify-Taste-Analyzer
 ```
 
-To install the app, run the following commands
+2. Add `taste` to the `CustomApps` folder
+3. Run `spicetify config custom_apps taste`
+4. Run `spicetify apply`
+5. Enjoy
 
-```bash
-cd Spicetify-Taste-Analyzer
-make run
-```
-
-## Changelog
-<details>
-  <summary><strong>Version 1.0</strong></summary>
-
-- **Visual Changes:**
-    - Match Spotify UI overall theme
-    - Scrollable sections
-    
-</details>
+## Notes
+> *UI may slightly defer (I'm using dribblish nord theme)*

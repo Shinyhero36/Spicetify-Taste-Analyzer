@@ -1,0 +1,10 @@
+.taste-header {
+    -webkit-box-pack: justify;
+    -webkit-box-align: center;
+    align-content: space-between;
+    align-items: center;
+    color: var(--spice-text);
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+}
