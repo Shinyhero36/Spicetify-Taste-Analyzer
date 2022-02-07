@@ -35,7 +35,7 @@ class Card extends react.Component {
     } else if (uriType === URI.Type.ARTIST) {
       return this.props.images[0].url;
     } else {
-      console.log("TYPE: ", uriType);
+      // console.log("TYPE: ", uriType);
     }
   }
 
@@ -48,7 +48,7 @@ class Card extends react.Component {
     } else if (uriType === URI.Type.ARTIST) {
       return this.props.name;
     } else {
-      console.log("TYPE: ", uriType);
+      // console.log("TYPE: ", uriType);
     }
   }
 
