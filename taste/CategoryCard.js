@@ -2,7 +2,6 @@ class CategoryCard extends react.Component {
   constructor(props) {
     super(props);
     Object.assign(this, props);
-    console.log(props);
     this.state = {
       cover: {
         art: null,

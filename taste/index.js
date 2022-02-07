@@ -20,7 +20,73 @@ const FooterProps = {
  * @returns {*}
  */
 function render() {
-  return react.createElement(App, { title: "My music tastes" });
+  const { location } = History;
+
+  switch (location.pathname) {
+    case "/taste/alltime-artists":
+      return react.createElement(
+        "section",
+        {
+          className: "contentSpacing",
+        },
+        react.createElement(Grid, {
+          title: "Artists of all-time",
+          component: Card,
+          items: userInfo.artists.allTime,
+        })
+      );
+      break;
+
+    case "/taste/alltime-tracks":
+      return react.createElement(
+        "section",
+        {
+          className: "contentSpacing",
+        },
+        react.createElement(Grid, {
+          title: "Tracks of all-time",
+          component: Card,
+          items: userInfo.tracks.allTime,
+        })
+      );
+      break;
+
+    case "/taste/moment-artists":
+      return react.createElement(
+        "section",
+        {
+          className: "contentSpacing",
+        },
+        react.createElement(Grid, {
+          title: "Artists of the moment",
+          component: Card,
+          items: userInfo.artists.now,
+        })
+      );
+      break;
+
+    case "/taste/moment-tracks":
+      return react.createElement(
+        "section",
+        {
+          className: "contentSpacing",
+        },
+        react.createElement(Grid, {
+          title: "Tracks of the moment",
+          component: Card,
+          items: userInfo.tracks.now,
+        })
+      );
+      return;
+      break;
+
+    case "/taste":
+      return react.createElement(App, { title: "My music tastes" });
+      break;
+
+    default:
+      console.log(location.pathname);
+  }
 }
 
 let sections = [];
@@ -113,7 +179,7 @@ class App extends react.Component {
           title: "Your top genres",
           items: userInfo.genres.slice(0, 10),
           component: CategoryCard,
-          showBtn: false,
+          showBtn: true,
         })
       );
 
@@ -123,7 +189,8 @@ class App extends react.Component {
           description: "A list of your favourite artists of the moment",
           items: userInfo.artists.now,
           component: Card,
-          showBtn: false,
+          showBtn: true,
+          pathTo: "/taste/moment-artists",
         })
       );
 
@@ -133,7 +200,8 @@ class App extends react.Component {
           description: "A list of your favourite artists of all-time",
           items: userInfo.artists.allTime,
           component: Card,
-          showBtn: false,
+          showBtn: true,
+          pathTo: "/taste/alltime-artists",
         })
       );
 
@@ -143,7 +211,8 @@ class App extends react.Component {
           description: "A list of your favourite tracks of the moment",
           items: userInfo.tracks.now,
           component: Card,
-          showBtn: false,
+          showBtn: true,
+          pathTo: "/taste/moment-tracks",
         })
       );
 
@@ -153,7 +222,8 @@ class App extends react.Component {
           description: "A list of your favourite tracks of all-time",
           items: userInfo.tracks.allTime,
           component: Card,
-          showBtn: false,
+          showBtn: true,
+          pathTo: "/taste/alltime-tracks",
         })
       );
     }

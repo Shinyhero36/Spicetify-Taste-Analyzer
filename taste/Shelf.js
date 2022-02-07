@@ -18,26 +18,6 @@ class Shelf extends react.Component {
     this.setState({ items: cards });
   }
 
-  showMore() {
-    let newItemShown = this.state.itemShown;
-
-    if (this.state.itemShown === this.state.items.length) {
-      newItemShown = 7;
-    } else if (this.state.itemShown + 7 < this.state.items.length) {
-      newItemShown += 7;
-    } else {
-      newItemShown = this.state.items.length;
-    }
-
-    console.log("→", newItemShown);
-
-    this.setState({
-      itemShown: newItemShown,
-      text:
-        newItemShown !== this.state.items.length ? "Show more" : "Show less",
-    });
-  }
-
   render() {
     return react.createElement(
       "section",
@@ -95,7 +75,7 @@ class Shelf extends react.Component {
               draggable: false,
               className: "main-seeAll-link main-shelf-seeAll",
               onClick: () => {
-                this.showMore();
+                History.push(this.props.pathTo);
               },
             },
             this.props.showBtn &&
