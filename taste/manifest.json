@@ -6,6 +6,7 @@
     "Card.js",
     "CategoryCard.js",
     "Footer.js",
+    "Grid.js",
     "Icons.js",
     "Shelf.js"
   ]
