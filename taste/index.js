@@ -7,7 +7,6 @@ const {
   URI,
   React: react,
   Platform: { History },
-  colorExtractor,
 } = Spicetify;
 
 const FooterProps = {
@@ -77,7 +76,6 @@ function render() {
           items: userInfo.tracks.now,
         })
       );
-      return;
       break;
 
     case "/taste":
@@ -179,7 +177,7 @@ class App extends react.Component {
           title: "Your top genres",
           items: userInfo.genres.slice(0, 10),
           component: CategoryCard,
-          showBtn: true,
+          showBtn: false,
         })
       );
 
@@ -228,7 +226,14 @@ class App extends react.Component {
       );
     }
 
-    this.reload();
+    const { entries } = History;
+
+    if (entries.filter((entry) => entry.pathname === "/").length === 0) {
+      History.push("/"); // Go back to home to load CSS
+      History.push("/taste"); // Go to the custom app page
+    } else {
+      this.reload();
+    }
   }
 
   render() {
