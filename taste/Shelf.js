@@ -6,6 +6,7 @@ class Shelf extends react.Component {
       items: [],
       itemShown: 7,
       text: "Show more",
+      style: this.props.style ? this.props.style : {},
     };
   }
 
@@ -98,6 +99,7 @@ class Shelf extends react.Component {
           }`,
           style: {
             "--minimumColumnWidth": "180px",
+            ...this.state.style,
           },
         },
 
