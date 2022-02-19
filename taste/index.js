@@ -78,6 +78,24 @@ function render() {
       );
       break;
 
+    case "/taste/top-genres":
+      return react.createElement(
+        "section",
+        {
+          className: "contentSpacing",
+        },
+        react.createElement(Grid, {
+          title: "Tracks of the moment",
+          component: CategoryCard,
+          items: userInfo.genres.slice(0, 10),
+          style: {
+            "--item-height": "80px",
+            "--minimumColumnWidth": "180px",
+          },
+        })
+      );
+      break;
+
     case "/taste":
       return react.createElement(App, { title: "My music tastes" });
       break;
@@ -173,11 +191,16 @@ class App extends react.Component {
       await this.fetchInfo();
 
       sections.push(
-        react.createElement(Grid, {
+        react.createElement(Shelf, {
           title: "Your top genres",
           items: userInfo.genres.slice(0, 10),
           component: CategoryCard,
-          showBtn: false,
+          showBtn: true,
+          pathTo: "/taste/top-genres",
+          style: {
+            "--item-height": "80px",
+            "--minimumColumnWidth": "220px",
+          },
         })
       );
 
