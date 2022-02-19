@@ -7,7 +7,6 @@ const {
   URI,
   React: react,
   Platform: { History },
-  colorExtractor,
 } = Spicetify;
 
 const FooterProps = {
@@ -77,7 +76,24 @@ function render() {
           items: userInfo.tracks.now,
         })
       );
-      return;
+      break;
+
+    case "/taste/top-genres":
+      return react.createElement(
+        "section",
+        {
+          className: "contentSpacing",
+        },
+        react.createElement(Grid, {
+          title: "Tracks of the moment",
+          component: CategoryCard,
+          items: userInfo.genres.slice(0, 10),
+          style: {
+            "--item-height": "80px",
+            "--minimumColumnWidth": "180px",
+          },
+        })
+      );
       break;
 
     case "/taste":
@@ -175,11 +191,16 @@ class App extends react.Component {
       await this.fetchInfo();
 
       sections.push(
-        react.createElement(Grid, {
+        react.createElement(Shelf, {
           title: "Your top genres",
           items: userInfo.genres.slice(0, 10),
           component: CategoryCard,
           showBtn: true,
+          pathTo: "/taste/top-genres",
+          style: {
+            "--item-height": "80px",
+            "--minimumColumnWidth": "220px",
+          },
         })
       );
 
@@ -228,7 +249,14 @@ class App extends react.Component {
       );
     }
 
-    this.reload();
+    const { entries } = History;
+
+    if (entries.filter((entry) => entry.pathname === "/").length === 0) {
+      History.push("/"); // Go back to home to load CSS
+      History.push("/taste"); // Go to the custom app page
+    } else {
+      this.reload();
+    }
   }
 
   render() {
