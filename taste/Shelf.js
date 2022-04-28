@@ -99,6 +99,9 @@ class Shelf extends react.Component {
           }`,
           style: {
             "--minimumColumnWidth": "180px",
+            "--column-width": "207px",
+            "--column-count": "7",
+            "--grid-gap": "24px",
             ...this.state.style,
           },
         },
