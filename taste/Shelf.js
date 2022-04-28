@@ -7,16 +7,68 @@ class Shelf extends react.Component {
       itemShown: 7,
       text: "Show more",
       style: this.props.style ? this.props.style : {},
+      selectedFilter: this.props.collections[0].id,
     };
   }
 
   componentDidMount() {
-    let cards;
-    cards = this.props.items.map((item) => {
-      return react.createElement(this.props.component, item);
-    });
+    let cards = [];
+    cards = this.props.collections
+      .filter((collection) => collection.id === this.state.selectedFilter)[0]
+      .items.map((item) => {
+        return react.createElement(this.props.component, item);
+      });
 
     this.setState({ items: cards });
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.selectedFilter !== this.state.selectedFilter)
+      this.componentDidMount();
+  }
+
+  filtersDOM() {
+    if (this.props.collections.length > 1) {
+      return react.createElement(
+        "div",
+        {
+          className: "hWGxHSAKACFWXowXPDTP",
+        },
+        react.createElement(
+          "div",
+          {
+            className: "Jr6tcq7gSdKFSqofza3T",
+          },
+          this.props.collections.map((collection) => {
+            return react.createElement(
+              "button",
+              {
+                className: "Chip__ChipComponent-ry3uox-0 jquShk",
+                "aria-checked": this.state.selectedFilter === collection.id,
+                onClick: () => {
+                  this.setState({
+                    selectedFilter: collection.id,
+                  });
+                },
+              },
+              react.createElement(
+                "div",
+                {
+                  className: `ChipInner-sc-1ly6j4j-0 ${
+                    this.state.selectedFilter === collection.id
+                      ? "cWsvKZ encore-inverted-light-set"
+                      : "dwbjqG"
+                  }`,
+                },
+                collection.title
+              )
+            );
+          })
+        )
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -24,6 +76,9 @@ class Shelf extends react.Component {
       "section",
       {
         className: "main-shelf-shelf",
+        style: {
+          "min-height": "0px",
+        },
         "aria-label": this.props.description,
       },
       react.createElement(
@@ -76,7 +131,9 @@ class Shelf extends react.Component {
               draggable: false,
               className: "main-seeAll-link main-shelf-seeAll",
               onClick: () => {
-                History.push(this.props.pathTo);
+                History.push(
+                  this.props.pathTo + "-" + this.state.selectedFilter
+                );
               },
             },
             this.props.showBtn &&
@@ -91,6 +148,7 @@ class Shelf extends react.Component {
           )
         )
       ),
+      this.filtersDOM(),
       react.createElement(
         "div",
         {
@@ -105,7 +163,6 @@ class Shelf extends react.Component {
             ...this.state.style,
           },
         },
-
         this.state.items.slice(0, this.state.itemShown)
       )
     );

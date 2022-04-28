@@ -22,76 +22,58 @@ function render() {
   const { location } = History;
 
   switch (location.pathname) {
-    case "/taste/alltime-artists":
+    case "/taste/artists-long":
       return react.createElement(
         "section",
         {
           className: "contentSpacing",
         },
         react.createElement(Grid, {
-          title: "Artists of all-time",
+          title: "Favourite artists of all-time",
           component: Card,
           items: userInfo.artists.allTime,
         })
       );
       break;
 
-    case "/taste/alltime-tracks":
+    case "/taste/artists-short":
       return react.createElement(
         "section",
         {
           className: "contentSpacing",
         },
         react.createElement(Grid, {
-          title: "Tracks of all-time",
-          component: Card,
-          items: userInfo.tracks.allTime,
-        })
-      );
-      break;
-
-    case "/taste/moment-artists":
-      return react.createElement(
-        "section",
-        {
-          className: "contentSpacing",
-        },
-        react.createElement(Grid, {
-          title: "Artists of the moment",
+          title: "Favourite artists for the past 4 weeks",
           component: Card,
           items: userInfo.artists.now,
         })
       );
       break;
 
-    case "/taste/moment-tracks":
+    case "/taste/tracks-long":
       return react.createElement(
         "section",
         {
           className: "contentSpacing",
         },
         react.createElement(Grid, {
-          title: "Tracks of the moment",
+          title: "Favourite tracks of all-time",
           component: Card,
-          items: userInfo.tracks.now,
+          items: userInfo.tracks.allTime,
         })
       );
       break;
 
-    case "/taste/top-genres":
+    case "/taste/tracks-short":
       return react.createElement(
         "section",
         {
           className: "contentSpacing",
         },
         react.createElement(Grid, {
-          title: "Tracks of the moment",
-          component: CategoryCard,
-          items: userInfo.genres.slice(0, 10),
-          style: {
-            "--item-height": "80px",
-            "--minimumColumnWidth": "180px",
-          },
+          title: "Favouritetracks for the past 4 weeks",
+          component: Card,
+          items: userInfo.tracks.now,
         })
       );
       break;
@@ -193,9 +175,14 @@ class App extends react.Component {
       sections.push(
         react.createElement(Shelf, {
           title: "Your top genres",
-          items: userInfo.genres.slice(0, 10),
+          collections: [
+            {
+              id: "genres",
+              items: userInfo.genres.slice(0, 10),
+            },
+          ],
           component: CategoryCard,
-          showBtn: true,
+          showBtn: false,
           pathTo: "/taste/top-genres",
           style: {
             "--item-height": "80px",
@@ -206,53 +193,53 @@ class App extends react.Component {
 
       sections.push(
         react.createElement(Shelf, {
-          title: "Artists of the moment",
-          description: "A list of your favourite artists of the moment",
-          items: userInfo.artists.now,
+          title: "Favourite Artists",
+          description: "A list of your favourite artists",
+          collections: [
+            {
+              id: "short",
+              title: "Last 4 Weeks",
+              items: userInfo.artists.now,
+            },
+            {
+              id: "long",
+              title: "All Time",
+              items: userInfo.artists.allTime,
+            },
+          ],
           component: Card,
           showBtn: true,
-          pathTo: "/taste/moment-artists",
+          pathTo: "/taste/artists",
         })
       );
 
       sections.push(
         react.createElement(Shelf, {
-          title: "Artists of all-time",
-          description: "A list of your favourite artists of all-time",
-          items: userInfo.artists.allTime,
+          title: "Favourite Tracks",
+          description: "A list of your favourite tracks",
+          collections: [
+            {
+              id: "short",
+              title: "Last 4 Weeks",
+              items: userInfo.tracks.now,
+            },
+            {
+              id: "long",
+              title: "All Time",
+              items: userInfo.tracks.allTime,
+            },
+          ],
           component: Card,
           showBtn: true,
-          pathTo: "/taste/alltime-artists",
-        })
-      );
-
-      sections.push(
-        react.createElement(Shelf, {
-          title: "Tracks of the moment",
-          description: "A list of your favourite tracks of the moment",
-          items: userInfo.tracks.now,
-          component: Card,
-          showBtn: true,
-          pathTo: "/taste/moment-tracks",
-        })
-      );
-
-      sections.push(
-        react.createElement(Shelf, {
-          title: "Tracks of all-time",
-          description: "A list of your favourite tracks of all-time",
-          items: userInfo.tracks.allTime,
-          component: Card,
-          showBtn: true,
-          pathTo: "/taste/alltime-tracks",
+          pathTo: "/taste/tracks",
         })
       );
     }
 
     const { entries } = History;
-
     if (entries.filter((entry) => entry.pathname === "/").length === 0) {
       History.push("/"); // Go back to home to load CSS
+      History.push("/artist/59XQUEHhy5830QsAsmhe2M"); // TODO: Go to artist page to load CSS
       History.push("/taste"); // Go to the custom app page
     } else {
       this.reload();
