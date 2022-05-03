@@ -1,7 +1,0 @@
-{
-  "name": "Spicetify Taste Analyzer",
-  "description": "Display your favorites genres, tracks and artists within Spotify",
-  "preview": "preview.png",
-  "main": "taste/index.js",
-  "readme": "README.md"
-}
