@@ -5,70 +5,29 @@ class Shelf extends react.Component {
     this.state = {
       items: [],
       itemShown: 7,
-      text: "Show more",
       style: this.props.style ? this.props.style : {},
-      selectedFilter: this.props.collections[0].id,
     };
   }
 
   componentDidMount() {
-    let cards = [];
-    cards = this.props.collections
-      .filter((collection) => collection.id === this.state.selectedFilter)[0]
-      .items.map((item) => {
+    this.setState({
+      items: this.props.collections[0].items.map((item) => {
         return react.createElement(this.props.component, item);
+      }),
+    });
+  }
+
+  setCardsToShow(key) {
+    const newCollection = this.props.collections.filter(
+      (collection) => collection.id === key
+    );
+
+    if (newCollection)
+      this.setState({
+        items: newCollection[0].items.map((item) => {
+          return react.createElement(this.props.component, item);
+        }),
       });
-
-    this.setState({ items: cards });
-  }
-
-  componentDidUpdate(_, prevState) {
-    if (prevState.selectedFilter !== this.state.selectedFilter)
-      this.componentDidMount();
-  }
-
-  filtersDOM() {
-    if (this.props.collections.length > 1) {
-      return react.createElement(
-        "div",
-        {
-          className: "hWGxHSAKACFWXowXPDTP",
-        },
-        react.createElement(
-          "div",
-          {
-            className: "Jr6tcq7gSdKFSqofza3T",
-          },
-          this.props.collections.map((collection) => {
-            return react.createElement(
-              "button",
-              {
-                className: "Chip__ChipComponent-ry3uox-0 jquShk",
-                "aria-checked": this.state.selectedFilter === collection.id,
-                onClick: () => {
-                  this.setState({
-                    selectedFilter: collection.id,
-                  });
-                },
-              },
-              react.createElement(
-                "div",
-                {
-                  className: `ChipInner-sc-1ly6j4j-0 ${
-                    this.state.selectedFilter === collection.id
-                      ? "cWsvKZ encore-inverted-light-set"
-                      : "dwbjqG"
-                  }`,
-                },
-                collection.title
-              )
-            );
-          })
-        )
-      );
-    } else {
-      return null;
-    }
   }
 
   render() {
@@ -124,31 +83,49 @@ class Shelf extends react.Component {
                 },
                 this.props.description
               )
-          ),
-          react.createElement(
-            "a",
-            {
-              draggable: false,
-              className: "main-seeAll-link main-shelf-seeAll",
-              onClick: () => {
-                History.push(
-                  this.props.pathTo + "-" + this.state.selectedFilter
-                );
-              },
-            },
-            this.props.showBtn &&
-              react.createElement(
-                "span",
-                {
-                  className: "main-type-minuetBold",
-                  as: "span",
-                },
-                this.state.text
-              )
           )
         )
       ),
-      this.filtersDOM(),
+      this.props.collections.length > 1 &&
+        react.createElement(
+          "div",
+          {
+            className: "hWGxHSAKACFWXowXPDTP",
+          },
+          react.createElement(
+            "div",
+            {
+              className: "Jr6tcq7gSdKFSqofza3T",
+              style: {
+                gap: "12px",
+                display: "flex",
+                "margin-bottom": "1rem",
+              },
+            },
+            this.sortBy.map((sBy) => {
+              return react.createElement(
+                "button",
+                {
+                  style: {
+                    "border-radius": "var(--border-radius)",
+                    "font-size": "12px",
+                    "line-height": "16px",
+                    "font-weight": "700",
+                    "letter-spacing": "0.1em",
+                    "text-transform": "uppercase",
+                    "text-align": "center",
+                    color: "var(--spice-text)",
+                    "background-color": "initial",
+                    padding: "7px 15px",
+                    border: "1px solid var(--spice-text)",
+                  },
+                  onClick: () => this.setCardsToShow(sBy.key),
+                },
+                sBy.value
+              );
+            })
+          )
+        ),
       react.createElement(
         "div",
         {
