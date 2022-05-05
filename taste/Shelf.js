@@ -7,6 +7,11 @@ class Shelf extends react.Component {
       itemShown: 7,
       style: this.props.style ? this.props.style : {},
     };
+
+    this.sortBy = [
+      { key: "short", value: "Last 4 weeks" },
+      { key: "long", value: "All Time" },
+    ];
   }
 
   componentDidMount() {
