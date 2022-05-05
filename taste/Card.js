@@ -4,26 +4,8 @@ class Card extends react.Component {
     Object.assign(this, props);
 
     const uriObj = URI.fromString(this.uri);
-    this.href = uriObj.toURLPath(true);
-
     this.uriType = uriObj.type;
-    switch (this.uriType) {
-      case URI.Type.ALBUM:
-      case URI.Type.TRACK:
-        this.menuType = Spicetify.ReactComponent.AlbumMenu;
-        break;
-      case URI.Type.ARTIST:
-        this.menuType = Spicetify.ReactComponent.ArtistMenu;
-        break;
-      case URI.Type.PLAYLIST:
-      case URI.Type.PLAYLIST_V2:
-        this.menuType = Spicetify.ReactComponent.PlaylistMenu;
-        break;
-      case URI.Type.SHOW:
-        this.menuType = Spicetify.ReactComponent.PodcastShowMenu;
-        break;
-    }
-    this.menuType = this.menuType || "div";
+    this.menuType = "div";
   }
 
   cover() {
@@ -76,16 +58,12 @@ class Card extends react.Component {
     return react.createElement(
       Spicetify.ReactComponent.RightClickMenu || "div",
       {
-        menu: react.createElement(this.menuType, { uri: this.uri }),
+        menu: react.createElement(this.menuType, { uri: this.props.uri }),
       },
       react.createElement(
         "div",
         {
           className: "main-card-card",
-          onClick: (event) => {
-            History.push(this.href);
-            event.preventDefault();
-          },
         },
         react.createElement(
           "div",
@@ -119,38 +97,6 @@ class Card extends react.Component {
                     "main-image-image main-cardImage-image main-cardImage-roundedCorners",
                 })
               )
-            ),
-            react.createElement(
-              "div",
-              {
-                className: "main-card-PlayButtonContainer",
-              },
-              react.createElement(
-                "button",
-                {
-                  className:
-                    "main-playButton-PlayButton main-playButton-primary",
-                  "aria-label": "Play",
-                  style: {
-                    "--size": "40px",
-                  },
-                  onClick: this.play.bind(this),
-                },
-                react.createElement(
-                  "svg",
-                  {
-                    height: 16,
-                    width: 16,
-                    viewBox: "0 0 24 24",
-                    ariaHidden: true,
-                    role: "img",
-                  },
-                  react.createElement("polygon", {
-                    points: "21.57 12 5.98 3 5.98 21 21.57 12",
-                    fill: "currentColor",
-                  })
-                )
-              )
             )
           ),
           react.createElement(
@@ -164,7 +110,6 @@ class Card extends react.Component {
                 className: "main-cardHeader-link",
                 draggable: false,
                 dir: "auto",
-                href: "/show/145gf6QoEMM5e7RxaT3Msn",
               },
               react.createElement(
                 "div",
