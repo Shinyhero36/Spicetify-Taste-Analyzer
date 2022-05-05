@@ -19,72 +19,7 @@ const FooterProps = {
  * @returns {*}
  */
 function render() {
-  const { location } = History;
-
-  switch (location.pathname) {
-    case "/taste/artists-long":
-      return react.createElement(
-        "section",
-        {
-          className: "contentSpacing",
-        },
-        react.createElement(Grid, {
-          title: "Favourite artists of all-time",
-          component: Card,
-          items: userInfo.artists.allTime,
-        })
-      );
-      break;
-
-    case "/taste/artists-short":
-      return react.createElement(
-        "section",
-        {
-          className: "contentSpacing",
-        },
-        react.createElement(Grid, {
-          title: "Favourite artists for the past 4 weeks",
-          component: Card,
-          items: userInfo.artists.now,
-        })
-      );
-      break;
-
-    case "/taste/tracks-long":
-      return react.createElement(
-        "section",
-        {
-          className: "contentSpacing",
-        },
-        react.createElement(Grid, {
-          title: "Favourite tracks of all-time",
-          component: Card,
-          items: userInfo.tracks.allTime,
-        })
-      );
-      break;
-
-    case "/taste/tracks-short":
-      return react.createElement(
-        "section",
-        {
-          className: "contentSpacing",
-        },
-        react.createElement(Grid, {
-          title: "Favouritetracks for the past 4 weeks",
-          component: Card,
-          items: userInfo.tracks.now,
-        })
-      );
-      break;
-
-    case "/taste":
-      return react.createElement(App, { title: "My music tastes" });
-      break;
-
-    default:
-      console.log(location.pathname);
-  }
+  return react.createElement(App, { title: "My music tastes" });
 }
 
 let sections = [];
@@ -173,17 +108,15 @@ class App extends react.Component {
       await this.fetchInfo();
 
       sections.push(
-        react.createElement(Shelf, {
+        react.createElement(ShelfGenres, {
           title: "Your top genres",
           collections: [
             {
               id: "genres",
-              items: userInfo.genres.slice(0, 10),
+              items: userInfo.genres.slice(0, 5),
             },
           ],
           component: CategoryCard,
-          showBtn: false,
-          pathTo: "/taste/top-genres",
           style: {
             "--item-height": "80px",
             "--minimumColumnWidth": "220px",
@@ -208,8 +141,6 @@ class App extends react.Component {
             },
           ],
           component: Card,
-          showBtn: true,
-          pathTo: "/taste/artists",
         })
       );
 
@@ -230,8 +161,6 @@ class App extends react.Component {
             },
           ],
           component: Card,
-          showBtn: true,
-          pathTo: "/taste/tracks",
         })
       );
     }
@@ -239,7 +168,6 @@ class App extends react.Component {
     const { entries } = History;
     if (entries.filter((entry) => entry.pathname === "/").length === 0) {
       History.push("/"); // Go back to home to load CSS
-      History.push("/artist/59XQUEHhy5830QsAsmhe2M"); // TODO: Go to artist page to load CSS
       History.push("/taste"); // Go to the custom app page
     } else {
       this.reload();
