@@ -5,18 +5,34 @@ class Shelf extends react.Component {
     this.state = {
       items: [],
       itemShown: 7,
-      text: "Show more",
       style: this.props.style ? this.props.style : {},
     };
+
+    this.sortBy = [
+      { key: "short", value: "Last 4 weeks" },
+      { key: "long", value: "All Time" },
+    ];
   }
 
   componentDidMount() {
-    let cards;
-    cards = this.props.items.map((item) => {
-      return react.createElement(this.props.component, item);
+    this.setState({
+      items: this.props.collections[0].items.map((item) => {
+        return react.createElement(this.props.component, item);
+      }),
     });
+  }
 
-    this.setState({ items: cards });
+  setCardsToShow(key) {
+    const newCollection = this.props.collections.filter(
+      (collection) => collection.id === key
+    );
+
+    if (newCollection)
+      this.setState({
+        items: newCollection[0].items.map((item) => {
+          return react.createElement(this.props.component, item);
+        }),
+      });
   }
 
   render() {
@@ -24,6 +40,9 @@ class Shelf extends react.Component {
       "section",
       {
         className: "main-shelf-shelf",
+        style: {
+          "min-height": "0px",
+        },
         "aria-label": this.props.description,
       },
       react.createElement(
@@ -69,28 +88,49 @@ class Shelf extends react.Component {
                 },
                 this.props.description
               )
-          ),
-          react.createElement(
-            "a",
-            {
-              draggable: false,
-              className: "main-seeAll-link main-shelf-seeAll",
-              onClick: () => {
-                History.push(this.props.pathTo);
-              },
-            },
-            this.props.showBtn &&
-              react.createElement(
-                "span",
-                {
-                  className: "main-type-minuetBold",
-                  as: "span",
-                },
-                this.state.text
-              )
           )
         )
       ),
+      this.props.collections.length > 1 &&
+        react.createElement(
+          "div",
+          {
+            className: "hWGxHSAKACFWXowXPDTP",
+          },
+          react.createElement(
+            "div",
+            {
+              className: "Jr6tcq7gSdKFSqofza3T",
+              style: {
+                gap: "12px",
+                display: "flex",
+                "margin-bottom": "1rem",
+              },
+            },
+            this.sortBy.map((sBy) => {
+              return react.createElement(
+                "button",
+                {
+                  style: {
+                    "border-radius": "var(--border-radius)",
+                    "font-size": "12px",
+                    "line-height": "16px",
+                    "font-weight": "700",
+                    "letter-spacing": "0.1em",
+                    "text-transform": "uppercase",
+                    "text-align": "center",
+                    color: "var(--spice-text)",
+                    "background-color": "initial",
+                    padding: "7px 15px",
+                    border: "1px solid var(--spice-text)",
+                  },
+                  onClick: () => this.setCardsToShow(sBy.key),
+                },
+                sBy.value
+              );
+            })
+          )
+        ),
       react.createElement(
         "div",
         {
@@ -99,10 +139,12 @@ class Shelf extends react.Component {
           }`,
           style: {
             "--minimumColumnWidth": "180px",
+            "--column-width": "207px",
+            "--column-count": "7",
+            "--grid-gap": "24px",
             ...this.state.style,
           },
         },
-
         this.state.items.slice(0, this.state.itemShown)
       )
     );

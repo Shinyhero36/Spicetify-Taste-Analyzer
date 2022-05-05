@@ -46,8 +46,9 @@ class Grid extends react.Component {
             className:
               "main-gridContainer-gridContainer main-shelf-shelfGrid main-shelf-showAll",
             style: {
-              "--minimumColumnWidth": "180px",
-              "--item-height": "80px",
+              "--column-width": "207px",
+              "--column-count": "7",
+              "--grid-gap": "24px",
             },
           },
           this.renderItems()

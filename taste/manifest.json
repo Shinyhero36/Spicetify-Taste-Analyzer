@@ -8,6 +8,7 @@
     "Footer.js",
     "Grid.js",
     "Icons.js",
-    "Shelf.js"
+    "Shelf.js",
+    "ShelfGenres.js"
   ]
 }
